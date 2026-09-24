@@ -476,11 +476,31 @@ app.get('/api/logs', (req, res) => {
   res.json(db.audit_logs);
 });
 
-// Endpoint Reset Data tiện lợi
-app.post('/api/reset-all', (req, res) => {
+// Endpoint Reset Data tiện lợi (Hỗ trợ cả mở link trực tiếp trên trình duyệt hoặc gửi request)
+app.all(['/reset', '/api/reset-all'], (req, res) => {
   const initial = JSON.parse(fs.readFileSync(INITIAL_DATA_FILE, 'utf8'));
   db = initial;
   saveData(db);
+
+  if (req.method === 'GET') {
+    return res.send(`
+      <!DOCTYPE html>
+      <html lang="vi">
+      <head>
+        <meta charset="utf-8">
+        <title>Khôi Phục Dữ Liệu - UEL EduPortal</title>
+      </head>
+      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f8fafc;">
+        <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; max-width: 450px;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 16px;">✔</div>
+          <h2 style="color: #1e293b; margin: 0 0 10px; font-size: 22px;">Khôi Phục Dữ Liệu Thành Công!</h2>
+          <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin: 0 0 24px;">Toàn bộ trạng thái đề tài (#87 Chờ duyệt), bình luận, điểm số và thông báo đã trở về trạng thái nguyên bản sạch 100%.</p>
+          <a href="/login.html" style="display: inline-block; padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px;">← Quay Về Trang Đăng Nhập</a>
+        </div>
+      </body>
+      </html>
+    `);
+  }
   res.json({ success: true, message: "Dữ liệu hệ thống đã được phục hồi về trạng thái ban đầu!" });
 });
 
