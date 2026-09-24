@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khóa Học MOOC: An Toàn & Bảo Mật HTTT - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html" class="active">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <a href="/mooc.html">Khóa học MOOC</a> <span class="sep">/</span>
+      <span>An Toàn & Bảo Mật Hệ Thống Thông Tin</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Bài Giảng: Tổng Quan Lỗ Hổng Ứng Dụng Web (Web Security)</span>
+        <span class="badge badge-success">Đang diễn ra</span>
+      </div>
+
+      <div style="background: #0f172a; border-radius: 8px; height: 320px; display: flex; align-items: center; justify-content: center; color: #94a3b8; margin-bottom: 20px;">
+        <div style="text-align: center;">
+          <div style="margin-bottom: 8px;">
+            <svg class="icon" style="width: 56px; height: 56px; stroke: #38bdf8; fill: rgba(56, 189, 248, 0.2);" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <p style="font-size: 15px; color: white; font-weight: 500;">Video Bài Giảng: Kiểm thử thâm nhập & Phòng thủ ứng dụng Web</p>
+          <span style="font-size: 13px;">Thời lượng: 45 phút • Giảng viên: TS. Nguyễn Thị B</span>
+        </div>
+      </div>
+
+      <p style="color: #475569; font-size: 14px; line-height: 1.6;">
+        Khóa học trang bị các kiến thức nền tảng về an ninh ứng dụng web theo tiêu chuẩn OWASP Top 10, bao gồm các cơ chế tấn công SQL Injection, Stored/Reflected XSS, kiểm soát truy cập IDOR, CSRF, và cấu hình máy chủ web an toàn.
+      </p>
+    </div>
+
+    <!-- Khu vực Thảo luận & Bình luận dính Stored XSS -->
+    <div class="card">
+      <div class="card-title">
+        <span>Thảo Luận & Đặt Câu Hỏi Cho Giảng Viên</span>
+        <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);" id="comment-count">0 bình luận</span>
+      </div>
+
+      <div style="margin-bottom: 24px; background: #f8fafc; padding: 18px; border-radius: 8px; border: 1px solid var(--border);">
+        <form id="commentForm">
+          <div class="form-group">
+            <label for="commentInput">Nội dung bình luận:</label>
+            <textarea id="commentInput" class="form-control" placeholder="Viết câu hỏi hoặc chia sẻ ý kiến của bạn về bài giảng..." rows="3" required></textarea>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 12px; color: var(--text-muted);">Mẹo: Bạn có thể đặt câu hỏi chi tiết về các lỗi bảo mật.</span>
+            <button type="submit" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Gửi bình luận
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="comments-container">
+        <!-- Danh sách bình luận render động -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Khoa Công nghệ Thông tin</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Centered Popup Modal (Giả lập hộp thoại Alert của trình duyệt hiển thị ngay giữa màn hình đúng kịch bản) -->
+  <div id="centeredAlertBackdrop" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45); z-index: 999999; align-items: center; justify-content: center; backdrop-filter: blur(1px);">
+    <div id="centeredAlertCard" style="background: #ffffff; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.08); width: 420px; max-width: 90%; overflow: hidden; animation: alertZoomIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      <div style="padding: 16px 20px 14px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; background: #f8fafc;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg class="icon icon-primary" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span style="font-size: 14px; font-weight: 600; color: #1e293b;">localhost:3000 cho biết</span>
+        </div>
+        <span style="font-size: 11px; background: #e2e8f0; color: #475569; padding: 2px 7px; border-radius: 4px; font-weight: 600;">Hộp thoại web</span>
+      </div>
+      <div id="centeredAlertMessage" style="padding: 24px 22px; font-size: 16px; color: #0f172a; line-height: 1.5; word-break: break-word;">
+        test
+      </div>
+      <div style="padding: 12px 20px 16px; background: #f8fafc; border-top: 1px solid #e2e8f0; text-align: right;">
+        <button id="centeredAlertOkBtn" style="background: #1e40af; color: #ffffff; border: none; padding: 8px 26px; font-size: 14px; font-weight: 600; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 4px rgba(30, 64, 175, 0.25); transition: background 0.15s;">OK</button>
+      </div>
+    </div>
+  </div>
+  <style>
+    @keyframes alertZoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    #centeredAlertOkBtn:hover {
+      background: #1d4ed8;
+    }
+  </style>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    // Hộp thoại Alert hiển thị ngay chính giữa màn hình (chuẩn theo kịch bản)
+    function showCenteredAlert(msg) {
+      const backdrop = document.getElementById('centeredAlertBackdrop');
+      const messageEl = document.getElementById('centeredAlertMessage');
+      const okBtn = document.getElementById('centeredAlertOkBtn');
+      if (messageEl) messageEl.textContent = msg;
+      if (backdrop) {
+        backdrop.style.display = 'flex';
+        setTimeout(() => okBtn && okBtn.focus(), 60);
+      }
+    }
+
+    function closeCenteredAlert() {
+      const backdrop = document.getElementById('centeredAlertBackdrop');
+      if (backdrop) backdrop.style.display = 'none';
+    }
+
+    document.getElementById('centeredAlertOkBtn')?.addEventListener('click', closeCenteredAlert);
+
+    // Ghi đè alert() để hiển thị popup ngay giữa màn hình thay vì bị dính lên mép trên Chrome
+    window.alert = function(msg) {
+      showCenteredAlert(msg);
+    };
+
+    async function loadComments() {
+      try {
+        const res = await fetch('/api/comments');
+        const comments = await res.json();
+        const container = document.getElementById('comments-container');
+        document.getElementById('comment-count').textContent = `${comments.length} bình luận`;
+
+        container.innerHTML = '';
+        comments.forEach(c => {
+          const item = document.createElement('div');
+          item.className = 'comment-box';
+          // LỖI 2: Render trực tiếp innerHTML không lọc ký tự đặc biệt -> Stored XSS
+          item.innerHTML = `
+            <div class="comment-avatar" style="display: flex; align-items: center; justify-content: center;">
+              <svg class="icon icon-muted" style="width: 22px; height: 22px;" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="comment-body">
+              <div>
+                <span class="comment-author">${c.user}</span>
+                <span class="comment-time">${c.time}</span>
+              </div>
+              <div class="comment-text" id="comment-content-${c.id}"></div>
+            </div>
+          `;
+          container.appendChild(item);
+
+          // Render raw HTML
+          const textEl = document.getElementById(`comment-content-${c.id}`);
+          textEl.innerHTML = c.content;
+
+          // Trì hoãn 350ms để toàn bộ giao diện, video, danh sách comment vẽ hoàn tất ra màn hình trước
+          // Sau đó mới kích hoạt Stored XSS popup ngay chính giữa màn hình
+          const scripts = textEl.getElementsByTagName('script');
+          if (scripts.length > 0) {
+            setTimeout(() => {
+              for (let i = 0; i < scripts.length; i++) {
+                const scriptTag = document.createElement('script');
+                scriptTag.text = scripts[i].text;
+                document.body.appendChild(scriptTag);
+              }
+            }, 350);
+          }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const content = document.getElementById('commentInput').value;
+
+      try {
+        const res = await fetch('/api/comments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user: "TS. Nguyễn Thị B",
+            content: content
+          })
+        });
+
+        if (res.ok) {
+          // Tải lại trang đúng như kịch bản: "Trang load lại, một hộp thoại popup ghi test bật lên ngay giữa màn hình"
+          window.location.reload();
+        }
+      } catch (err) {
+        showCenteredAlert("Lỗi khi gửi bình luận!");
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', loadComments);
+  </script>
+</body>
+</html>
+

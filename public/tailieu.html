@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài Liệu Tham Khảo - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf" class="active">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <a href="/tailieu.html">Tài liệu tham khảo</a> <span class="sep">/</span>
+      <span id="file-breadcrumb">huong_dan_khoa_luan.pdf</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Trình Đọc Văn Bản Tài Liệu Trực Tuyến</span>
+        <span id="file-status" class="badge badge-info">Đang tải...</span>
+      </div>
+
+      <div style="margin-bottom: 16px; font-size: 13px; color: var(--text-muted);">
+        Đường dẫn tệp tin: <code id="file-param-display" style="color: var(--primary); font-weight: bold; background: #e2e8f0; padding: 2px 6px; border-radius: 4px;"></code>
+      </div>
+
+      <div id="file-content-container">
+        <!-- Nội dung tệp tin tải về qua Directory Traversal hoặc thông thường -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Thư viện số và tài liệu trực tuyến</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadDocument() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const file = urlParams.get('file') || 'huong_dan_khoa_luan.pdf';
+
+      document.getElementById('file-breadcrumb').textContent = file;
+      document.getElementById('file-param-display').textContent = file;
+
+      try {
+        const res = await fetch(`/api/view-file?file=${encodeURIComponent(file)}`);
+        const text = await res.text();
+        const container = document.getElementById('file-content-container');
+        const badge = document.getElementById('file-status');
+
+        if (res.ok) {
+          if (file.includes('etc/passwd') || file.includes('passwd')) {
+            badge.className = 'badge badge-danger';
+            badge.textContent = 'SYSTEM FILE EXPOSED';
+            container.innerHTML = `
+              <div class="alert alert-danger" style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon icon-danger" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span><strong>Cảnh báo:</strong> Đang truy xuất tập tin nhạy cảm của hệ điều hành máy chủ Linux!</span>
+              </div>
+              <pre class="code-viewer">${escapeHtml(text)}</pre>
+            `;
+          } else {
+            badge.className = 'badge badge-success';
+            badge.textContent = 'Đã mở';
+            container.innerHTML = `
+              <div style="background: white; border: 1px solid var(--border); padding: 24px; border-radius: 6px; line-height: 1.8; white-space: pre-wrap; font-size: 14px;">${escapeHtml(text)}</div>
+            `;
+          }
+        } else {
+          badge.className = 'badge badge-danger';
+          badge.textContent = 'Lỗi tệp tin';
+          container.innerHTML = `<div class="alert alert-danger">${escapeHtml(text)}</div>`;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function escapeHtml(string) {
+      return String(string)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    window.addEventListener('DOMContentLoaded', loadDocument);
+  </script>
+</body>
+</html>
+

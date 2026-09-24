@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html" class="active">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <span>Bảng điều khiển hệ thống</span>
+    </div>
+
+    <!-- Thông báo động từ hệ thống (Bị CSRF ảnh hưởng) -->
+    <div id="announcement-section"></div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+      <div>
+        <div class="card">
+          <div class="card-title">
+            <span>Chào mừng đến với Cổng thông tin EduPortal</span>
+            <span class="badge badge-info">Phiên bản 1.0</span>
+          </div>
+          <p style="color: #475569; font-size: 14px; margin-bottom: 20px;">
+            Hệ thống EduPortal là nền tảng quản lý học tập trực tuyến, theo dõi tiến độ khóa luận tốt nghiệp, tra cứu điểm số và tiếp nhận hồ sơ minh chứng khoa học của sinh viên toàn trường.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="border: 1px solid var(--border); padding: 18px; border-radius: 8px; background: #fafafa;">
+              <h4 style="color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon icon-primary" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                Khóa Học MOOC
+              </h4>
+              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Tham gia thảo luận và học tập các môn chuyên ngành trực tuyến.</p>
+              <a href="/mooc.html" class="btn btn-primary btn-sm">Xem thảo luận MOOC →</a>
+            </div>
+
+            <div style="border: 1px solid var(--border); padding: 18px; border-radius: 8px; background: #fafafa;">
+              <h4 style="color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon icon-accent" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Tra Cứu Điểm Số
+              </h4>
+              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Xem kết quả đánh giá đề tài và điểm tổng kết các học phần.</p>
+              <a href="/diem.html?ma_de_tai=104" class="btn btn-primary btn-sm">Xem bảng điểm →</a>
+            </div>
+
+            <div style="border: 1px solid var(--border); padding: 18px; border-radius: 8px; background: #fafafa;">
+              <h4 style="color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon icon-secondary" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><polyline points="12 11 12 17"/><polyline points="9 14 12 11 15 14"/></svg>
+                Nộp Minh Chứng Đề Tài
+              </h4>
+              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Đăng tải file báo cáo, mã nguồn và tài liệu nghiệm thu khóa luận.</p>
+              <a href="/minhchung.html" class="btn btn-primary btn-sm">Nộp báo cáo ngay →</a>
+            </div>
+
+            <div style="border: 1px solid var(--border); padding: 18px; border-radius: 8px; background: #fafafa;">
+              <h4 style="color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon icon-primary" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 18h6"/><path d="M9 10h6"/></svg>
+                Quản Lý Đề Tài Tốt Nghiệp
+              </h4>
+              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Theo dõi tiến độ xét duyệt đề tài của sinh viên Quân (C).</p>
+              <a href="/detai.html" class="btn btn-primary btn-sm">Xem trạng thái đề tài →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Bảng Tin Thông Báo Mới Nhất</div>
+          <div id="announcement-list">
+            <p style="color: #64748b; font-size: 13px;">Đang tải danh sách thông báo...</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">Thông Tin Phiên Làm Việc</div>
+          <div style="font-size: 13px; line-height: 1.8;">
+            <p><strong>Máy chủ:</strong> EduPortal Production (v1.0.4)</p>
+            <p><strong>Môi trường:</strong> Node.js Express / PHP Backend</p>
+            <p><strong>Cơ chế xác thực:</strong> Cookie SESSION_ID / JWT</p>
+            <p><strong>Bảo mật:</strong> Đang trong giai đoạn thử nghiệm</p>
+          </div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
+            <a href="/debug-error" class="btn btn-danger btn-sm" style="width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Kiểm tra Báo cáo Lỗi Máy chủ
+            </a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Liên Kết Nhanh</div>
+          <ul style="list-style: none; font-size: 13px; line-height: 2.2;">
+            <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf" style="color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><svg class="icon icon-sm icon-muted" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Tài liệu hướng dẫn khóa luận</a></li>
+            <li><a href="/timkiem.html" style="color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><svg class="icon icon-sm icon-muted" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Tra cứu thông tin sinh viên</a></li>
+            <li><a href="/giangvien.html" style="color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><svg class="icon icon-sm icon-muted" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Danh bạ cán bộ giảng viên</a></li>
+            <li><a href="/thong-tin.html" style="color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><svg class="icon icon-sm icon-muted" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Thông số kỹ thuật & Bản quyền</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>Cổng Thông Tin Đào Tạo EduPortal</strong> — Trường Đại Học Công Nghệ Thông Tin</p>
+        <p>Địa chỉ: Khu phố 6, P. Linh Trung, TP. Thủ Đức, TP. Hồ Chí Minh</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadAnnouncements() {
+      try {
+        const res = await fetch('/api/announcements');
+        const list = await res.json();
+        const container = document.getElementById('announcement-list');
+        const topBanner = document.getElementById('announcement-section');
+
+        if (list && list.length > 0) {
+          // Banner cho thông báo mới nhất (nếu có CSRF triggered)
+          const latest = list[0];
+          if (latest.tieu_de.includes('CSRF') || latest.tieu_de.includes('Cập nhật') || latest.tieu_de.includes('YÊU CẦU')) {
+            topBanner.innerHTML = `
+              <div class="alert alert-success" style="box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 10px;">
+                <svg class="icon icon-success icon-md" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <div>
+                  <strong>Thông báo mới nhất:</strong> ${latest.tieu_de} — <span style="font-size: 12px; opacity: 0.85;">${latest.ngay}</span>
+                </div>
+              </div>
+            `;
+          }
+
+          let html = '';
+          list.forEach(item => {
+            html += `
+              <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                <div style="font-weight: 600; color: var(--primary-dark); font-size: 14px;">${item.tieu_de}</div>
+                <div style="font-size: 13px; color: #475569; margin: 4px 0;">${item.noi_dung}</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Đăng bởi: <strong>${item.nguoi_dang}</strong> • ${item.ngay}</div>
+              </div>
+            `;
+          });
+          container.innerHTML = html;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadAnnouncements);
+  </script>
+</body>
+</html>
+

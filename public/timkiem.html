@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra Cứu Hồ Sơ Sinh Viên - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html" class="active">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <span>Tra cứu thông tin sinh viên</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Tra Cứu Hồ Sơ & Mã Số Sinh Viên</div>
+
+      <div style="margin-bottom: 24px;">
+        <form id="searchForm" style="display: flex; gap: 12px;">
+          <input type="text" id="searchInput" class="form-control" placeholder="Nhập mã sinh viên cần tra cứu (ví dụ: SV001, SV002)..." required autofocus>
+          <button type="submit" class="btn btn-primary" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Tra cứu
+          </button>
+        </form>
+      </div>
+
+      <!-- Khu vực hiển thị lỗi SQL chi tiết (LỖI 7) -->
+      <div id="sqlErrorBox" class="sql-error-box" style="display: none;"></div>
+
+      <!-- Khu vực hiển thị kết quả bình thường -->
+      <div id="searchResults" style="display: none; margin-top: 16px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mã Sinh Viên</th>
+              <th>Họ và Tên</th>
+              <th>Lớp Sinh Hoạt</th>
+              <th>Điểm GPA</th>
+            </tr>
+          </thead>
+          <tbody id="resultTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Cơ sở dữ liệu đào tạo tập trung</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const val = document.getElementById('searchInput').value;
+      const errorBox = document.getElementById('sqlErrorBox');
+      const resultsBox = document.getElementById('searchResults');
+
+      errorBox.style.display = 'none';
+      resultsBox.style.display = 'none';
+
+      try {
+        const res = await fetch(`/api/tim-kiem-sv?ma_sv=${encodeURIComponent(val)}`);
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          // LỖI 7: Hiển thị nguyên khối lỗi SQL ra giao diện
+          errorBox.style.display = 'block';
+          errorBox.textContent = data.message || "Lỗi truy vấn SQL không xác định!";
+        } else {
+          resultsBox.style.display = 'block';
+          const tbody = document.getElementById('resultTbody');
+          tbody.innerHTML = '';
+          data.results.forEach(sv => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><strong>${sv.ma_sv}</strong></td>
+              <td>${sv.ho_ten}</td>
+              <td>${sv.lop}</td>
+              <td><span class="badge badge-info">${sv.gpa}</span></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        errorBox.style.display = 'block';
+        errorBox.textContent = "Lỗi kết nối máy chủ!";
+      }
+    });
+  </script>
+</body>
+</html>
+

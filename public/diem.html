@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra Cứu Điểm Đề Tài Tốt Nghiệp - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104" class="active">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <a href="/diem.html">Tra cứu điểm</a> <span class="sep">/</span>
+      <span id="breadcrumb-id">Đề tài #104</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Bảng Điểm Đánh Giá Khóa Luận Tốt Nghiệp</span>
+        <span id="grade-badge" class="badge">Đang tải...</span>
+      </div>
+
+      <div id="grade-content" style="font-size: 14px; line-height: 1.8;">
+        <!-- Dữ liệu điểm tải động dựa trên tham số URL ma_de_tai -->
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Chính Sách & Quy Định Bảo Mật Dữ Liệu Điểm Số</div>
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+        Theo quy định của Trường Đại học, kết quả đánh giá điểm số khóa luận là thông tin bảo mật của từng nhóm sinh viên. Mỗi tài khoản chỉ được phép truy cập kết quả đề tài thuộc quyền sở hữu của nhóm mình.
+      </p>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Phòng Khảo Thí & Đảm Bảo Chất Lượng</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadGrade() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const maDeTai = urlParams.get('ma_de_tai') || '104';
+
+      document.getElementById('breadcrumb-id').textContent = `Đề tài #${maDeTai}`;
+
+      try {
+        const res = await fetch(`/api/grades?ma_de_tai=${maDeTai}`);
+        const result = await res.json();
+        const contentEl = document.getElementById('grade-content');
+        const badgeEl = document.getElementById('grade-badge');
+
+        if (res.ok && result.success) {
+          const item = result.data;
+          const isPass = item.diem >= 5.0;
+
+          badgeEl.className = isPass ? 'badge badge-success' : 'badge badge-danger';
+          badgeEl.style.display = 'inline-flex';
+          badgeEl.style.alignItems = 'center';
+          badgeEl.style.gap = '6px';
+          badgeEl.innerHTML = isPass ?
+            `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> ${item.trang_thai}` :
+            `<svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> ${item.trang_thai}`;
+
+          contentEl.innerHTML = `
+            <table class="table">
+              <tr>
+                <th style="width: 220px;">Mã Đề Tài:</th>
+                <td><strong style="color: var(--primary);">#${item.ma_de_tai}</strong></td>
+              </tr>
+              <tr>
+                <th>Tên Đề Tài:</th>
+                <td><strong>${item.ten_de_tai}</strong></td>
+              </tr>
+              <tr>
+                <th>Nhóm Sinh Viên Thực Hiện:</th>
+                <td>${item.nhom_sv}</td>
+              </tr>
+              <tr>
+                <th>Điểm Tổng Kết Hội Đồng:</th>
+                <td>
+                  <span style="font-size: 22px; font-weight: bold; color: ${isPass ? '#10b981' : '#ef4444'};">
+                    ${item.diem.toFixed(1)} / 10
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>Trạng Thái Quyết Định:</th>
+                <td><strong style="color: ${isPass ? '#059669' : '#dc2626'};">${item.trang_thai}</strong></td>
+              </tr>
+              <tr>
+                <th>Nhận Xét & Đánh Giá:</th>
+                <td style="color: #475569; font-style: italic;">"${item.ghi_chu}"</td>
+              </tr>
+            </table>
+          `;
+        } else {
+          badgeEl.className = 'badge badge-danger';
+          badgeEl.textContent = 'Lỗi truy xuất';
+          contentEl.innerHTML = `<div class="alert alert-danger">${result.message || 'Không tìm thấy hồ sơ điểm cho đề tài này!'}</div>`;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadGrade);
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nộp Minh Chứng Đề Tài Tốt Nghiệp - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html" class="active">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <a href="/detai.html">Quản lý đề tài</a> <span class="sep">/</span>
+      <span>Nộp minh chứng đề tài</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Nộp Báo Cáo Minh Chứng Hoàn Thành Khóa Luận</span>
+        <span class="badge badge-warning">Hạn chót: 30/09/2026</span>
+      </div>
+
+      <div id="upload-result" style="display: none; margin-bottom: 20px;"></div>
+
+      <div style="margin-bottom: 24px;">
+        <p style="font-size: 14px; color: #475569; margin-bottom: 16px;">
+          Sinh viên nộp tệp báo cáo tổng kết, biên bản thử nghiệm và tài liệu minh chứng phần mềm nghiệm thu của đề tài tốt nghiệp.
+        </p>
+
+        <!-- Khung kéo thả tệp tin (Drag & Drop Zone) -->
+        <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+          <div class="upload-icon" style="margin-bottom: 12px;">
+            <svg class="icon icon-accent" style="width: 52px; height: 52px;" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><polyline points="12 11 12 17"/><polyline points="9 14 12 11 15 14"/></svg>
+          </div>
+          <h3 style="font-size: 16px; color: var(--primary-dark); margin-bottom: 6px;">Kéo thả tệp minh chứng vào đây</h3>
+          <p style="font-size: 13px; color: var(--text-muted);">hoặc bấm vào khung để duyệt tệp từ máy tính</p>
+          <input type="file" id="fileInput" style="display: none;">
+        </div>
+
+        <div id="selected-file-info" style="display: none; margin-top: 16px; padding: 12px; background: #f1f5f9; border-radius: 6px; font-size: 14px;">
+          Đã chọn: <strong id="file-name-display" style="color: var(--primary);"></strong>
+          <button id="btnUpload" class="btn btn-primary btn-sm" style="margin-left: 16px;">Bắt đầu tải lên</button>
+        </div>
+      </div>
+
+      <div class="alert alert-info" style="font-size: 13px; display: flex; align-items: center; gap: 8px;">
+        <svg class="icon icon-accent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span><strong>Lưu ý:</strong> Vui lòng đảm bảo tệp báo cáo đầy đủ chữ ký của giảng viên hướng dẫn trước khi nộp.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Danh Sách Tệp Đã Nộp Gần Đây</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tên Tệp Tin</th>
+            <th>Dung Lượng</th>
+            <th>Thời Gian Nộp</th>
+            <th>Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody id="uploaded-files-list">
+          <tr>
+            <td><span style="color: #2563eb; display: inline-flex; align-items: center; gap: 6px;"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> ban_thao_khoa_luan.docx</span></td>
+            <td>1.8 MB</td>
+            <td>18/09/2026 14:20</td>
+            <td><span class="badge badge-success">Hợp lệ</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Module Quản lý Nghiệm thu Đề tài</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const selectedFileInfo = document.getElementById('selected-file-info');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const btnUpload = document.getElementById('btnUpload');
+    const uploadResult = document.getElementById('upload-result');
+
+    let currentFile = null;
+
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.style.borderColor = '#2563eb';
+      dropzone.style.backgroundColor = '#eff6ff';
+    });
+
+    dropzone.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      dropzone.style.borderColor = '#94a3b8';
+      dropzone.style.backgroundColor = '#f8fafc';
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.style.borderColor = '#94a3b8';
+      dropzone.style.backgroundColor = '#f8fafc';
+
+      if (e.dataTransfer.files.length > 0) {
+        handleFileSelect(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    function handleFileSelect(file) {
+      currentFile = file;
+      fileNameDisplay.textContent = file.name;
+      selectedFileInfo.style.display = 'flex';
+      selectedFileInfo.style.alignItems = 'center';
+      uploadResult.style.display = 'none';
+
+      // Tự động tải lên hoặc bấm nút
+      doUpload(file);
+    }
+
+    btnUpload.addEventListener('click', () => {
+      if (currentFile) doUpload(currentFile);
+    });
+
+    async function doUpload(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch('/api/upload-minhchung', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          // Hiển thị chính xác thông báo theo kịch bản: "Tải lên thành công — bao_cao.php"
+          uploadResult.className = 'alert alert-success';
+          uploadResult.style.display = 'flex';
+          uploadResult.style.alignItems = 'center';
+          uploadResult.style.gap = '8px';
+          uploadResult.innerHTML = `
+            <svg class="icon icon-success" style="flex-shrink: 0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <strong>${data.message}</strong>
+          `;
+
+          // Thêm vào bảng danh sách tệp
+          const tbody = document.getElementById('uploaded-files-list');
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>
+              <span style="color: #ef4444; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                <svg class="icon icon-sm icon-danger" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                ${data.filename}
+              </span>
+            </td>
+            <td>${(data.size / 1024).toFixed(1)} KB</td>
+            <td>Vừa xong</td>
+            <td><span class="badge badge-success">Đã lưu trữ</span></td>
+          `;
+          tbody.insertBefore(row, tbody.firstChild);
+        } else {
+          uploadResult.className = 'alert alert-danger';
+          uploadResult.style.display = 'flex';
+          uploadResult.innerHTML = `
+            <svg class="icon icon-danger" style="flex-shrink: 0;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span>${data.message || 'Tải lên thất bại!'}</span>
+          `;
+        }
+      } catch (err) {
+        uploadResult.className = 'alert alert-danger';
+        uploadResult.style.display = 'flex';
+        uploadResult.innerHTML = `
+          <svg class="icon icon-danger" style="flex-shrink: 0;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span>Lỗi kết nối máy chủ khi upload!</span>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
+

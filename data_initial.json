@@ -1,0 +1,142 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin@123",
+      "role": "admin",
+      "name": "TS. Nguyễn Thị B (Giảng viên quản trị)",
+      "email": "nguyenthib@eduportal.edu.vn"
+    },
+    {
+      "username": "SV001",
+      "password": "quan123",
+      "role": "sinhvien",
+      "name": "Lê Anh Quân (C)",
+      "email": "quan.sv001@eduportal.edu.vn"
+    },
+    {
+      "username": "SV002",
+      "password": "123456",
+      "role": "sinhvien",
+      "name": "Nguyễn Văn A (Trưởng nhóm Dev)",
+      "email": "nguyenvana@eduportal.edu.vn"
+    }
+  ],
+  "sessions": {
+    "admin_sess_token": {
+      "username": "admin",
+      "name": "TS. Nguyễn Thị B (Giảng viên & Admin)",
+      "role": "admin",
+      "valid": true
+    },
+    "8f3a1c9d0e": {
+      "username": "SV002",
+      "name": "Nguyễn Văn A (Trưởng nhóm Dev)",
+      "role": "sinhvien",
+      "valid": true
+    },
+    "abc123": {
+      "username": "SV001",
+      "name": "Lê Anh Quân (C)",
+      "role": "sinhvien",
+      "valid": true
+    }
+  },
+  "comments": [
+    {
+      "id": 1,
+      "user": "Nguyễn Văn A",
+      "avatar": "user",
+      "content": "Khóa học rất bổ ích, hệ thống giao diện dễ theo dõi!",
+      "time": "22/09/2026 09:30"
+    },
+    {
+      "id": 2,
+      "user": "Trần Thị Lan",
+      "avatar": "user",
+      "content": "Phần thực hành an toàn thông tin rất hay và thực tế ạ.",
+      "time": "22/09/2026 10:15"
+    }
+  ],
+  "grades": {
+    "104": {
+      "ma_de_tai": "104",
+      "ten_de_tai": "Xây dựng cổng thông tin EduPortal tích hợp Microservices",
+      "nhom_sv": "Lê Anh Quân (C) - MSSV: SV001",
+      "diem": 4.0,
+      "trang_thai": "Không đạt (Rớt đề tài)",
+      "ghi_chu": "Báo cáo sơ sài, module chưa hoàn thiện, không đủ điều kiện tốt nghiệp."
+    },
+    "105": {
+      "ma_de_tai": "105",
+      "ten_de_tai": "Ứng dụng AI phân tích mã độc trên thiết bị IoT",
+      "nhom_sv": "Phạm Minh Hoàng & Trần Bảo Long",
+      "diem": 9.0,
+      "trang_thai": "Đạt (Được duyệt)",
+      "ghi_chu": "Đề tài xuất sắc, hoàn thành trọn vẹn mục tiêu nghiên cứu và thực nghiệm."
+    },
+    "106": {
+      "ma_de_tai": "106",
+      "ten_de_tai": "Nghiên cứu kiến trúc Zero Trust cho Doanh nghiệp",
+      "nhom_sv": "Vũ Hải Đăng",
+      "diem": 8.5,
+      "trang_thai": "Đạt",
+      "ghi_chu": "Bảo vệ tốt, phương án triển khai logic."
+    }
+  },
+  "thesis": {
+    "87": {
+      "ma_de_tai": 87,
+      "ten_de_tai": "Xây dựng cổng thông tin EduPortal tích hợp Microservices",
+      "sinh_vien": "Lê Anh Quân (C)",
+      "mssv": "SV001",
+      "gvhd": "TS. Nguyễn Thị B",
+      "trang_thai": "cho_duyet",
+      "trang_thai_label": "Chờ duyệt",
+      "ngay_nop": "20/09/2026",
+      "minh_chung": "chua_nop"
+    }
+  },
+  "announcements": [
+    {
+      "id": 1,
+      "tieu_de": "Thông báo về việc rà soát tiến độ khóa luận tốt nghiệp đợt 1",
+      "noi_dung": "Đề nghị tất cả các nhóm sinh viên nộp báo cáo minh chứng và cập nhật trạng thái trước ngày 30/09/2026.",
+      "ngay": "21/09/2026 08:00",
+      "nguoi_dang": "Phòng Đào Tạo"
+    }
+  ],
+  "lecturers": {
+    "12": {
+      "id": 12,
+      "ho_ten": "Nguyễn Văn A",
+      "so_dien_thoai": "0912345678",
+      "dia_chi": "Số 123 Đường Võ Văn Ngân, TP. Thủ Đức, TP. HCM",
+      "email": "nguyenvana@eduportal.edu.vn",
+      "chuc_danh": "Tiến sĩ - Giảng viên Khoa CNTT",
+      "khoa": "Khoa Công nghệ Thông tin",
+      "phong_lam_viec": "Phòng A2-304"
+    },
+    "15": {
+      "id": 15,
+      "ho_ten": "Nguyễn Thị B",
+      "so_dien_thoai": "0987654321",
+      "dia_chi": "Quận 1, TP. Hồ Chí Minh",
+      "email": "nguyenthib@eduportal.edu.vn",
+      "chuc_danh": "Tiến sĩ - Trưởng bộ môn & Quản trị EduPortal",
+      "khoa": "Khoa An toàn Thông tin",
+      "phong_lam_viec": "Phòng B1-201"
+    }
+  },
+  "audit_logs": [
+    {
+      "timestamp": "2026-09-23 14:10:05",
+      "method": "GET",
+      "url": "/login",
+      "ip": "127.0.0.1",
+      "user": "GUEST",
+      "detail": "Truy cập form đăng nhập"
+    }
+  ]
+}
+

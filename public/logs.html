@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhật Ký Máy Chủ (Server Audit Logs) - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html" class="active">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <span>Nhật ký yêu cầu máy chủ (Audit Logs)</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Giám Sát Request & Nhật Ký Truy Cập Máy Chủ</span>
+        <button onclick="loadLogs()" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Tải lại nhật ký
+        </button>
+      </div>
+
+      <p style="font-size: 14px; color: #475569; margin-bottom: 20px;">
+        Trang ghi nhận toàn bộ các yêu cầu HTTP gửi trực tiếp đến hệ thống Backend, phục vụ công tác rà soát an ninh và truy vết thao tác người dùng.
+      </p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Thời Gian</th>
+            <th>Phương Thức</th>
+            <th>Đường Dẫn (URL)</th>
+            <th>Tài Khoản Gửi</th>
+            <th>Chi Tiết Payload & Dấu Hiệu Bất Thường</th>
+          </tr>
+        </thead>
+        <tbody id="logs-tbody">
+          <!-- Logs render động -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Module Giám Sát và Phân Tích Nhật Ký Máy Chủ</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadLogs() {
+      try {
+        const res = await fetch('/api/logs');
+        const logs = await res.json();
+        const tbody = document.getElementById('logs-tbody');
+
+        tbody.innerHTML = '';
+        if (logs.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #94a3b8;">Chưa ghi nhận yêu cầu bất thường nào.</td></tr>';
+          return;
+        }
+
+        // Đảo ngược để thấy log mới nhất trước
+        logs.slice().reverse().forEach(log => {
+          const isSuspicious = log.bypass_ui || log.method === 'PUT' || (log.payload && JSON.stringify(log.payload).includes('da_duyet'));
+          const tr = document.createElement('tr');
+          if (isSuspicious) {
+            tr.style.backgroundColor = '#fef2f2';
+          }
+
+          let payloadStr = '';
+          if (log.payload) {
+            payloadStr = `<pre style="margin: 4px 0; background: #1e293b; color: #f87171; padding: 6px 10px; border-radius: 4px; font-size: 12px;">${JSON.stringify(log.payload, null, 2)}</pre>`;
+          }
+
+          tr.innerHTML = `
+            <td><span style="font-size: 12px; color: var(--text-muted);">${log.timestamp}</span></td>
+            <td><span class="badge ${log.method === 'PUT' ? 'badge-danger' : 'badge-info'}">${log.method}</span></td>
+            <td><strong style="color: var(--primary);">${log.url}</strong></td>
+            <td><strong>${log.user || 'Unknown'}</strong></td>
+            <td>
+              <div style="font-size: 13px; color: ${isSuspicious ? '#b91c1c' : '#334155'}; font-weight: ${isSuspicious ? '600' : 'normal'};">
+                ${log.detail || 'Thao tác bình thường'}
+              </div>
+              ${payloadStr}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadLogs);
+  </script>
+</body>
+</html>
+

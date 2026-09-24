@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Đề Tài Tốt Nghiệp #87 - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html">Giảng Viên</a></li>
+        <li><a href="/detai.html" class="active">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <span>Hồ sơ đề tài tốt nghiệp #87</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Chi Tiết Đăng Ký Đề Tài Tốt Nghiệp #87</span>
+        <span id="status-badge" class="badge badge-warning">Đang tải...</span>
+      </div>
+
+      <div id="thesis-detail" style="font-size: 14px; line-height: 1.8;">
+        <!-- Dữ liệu đề tài tải động -->
+      </div>
+
+      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 13px; color: var(--text-muted);">
+          Ghi chú: Quyền phê duyệt trạng thái "Đã duyệt" chỉ thuộc về Trưởng bộ môn & Hội đồng.
+        </span>
+        <div>
+          <!-- Nút gửi request mẫu của sinh viên (sinh viên chỉ được bấm gửi cập nhật thông tin) -->
+          <button id="btnCapNhat" class="btn btn-secondary btn-sm" onclick="guiYeuCauCapNhat()">
+            Kiểm tra tiến độ xét duyệt
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Lịch Sử Phê Duyệt Của Hội Đồng Chuyên Môn</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Thời Gian</th>
+            <th>Người Thực Hiện</th>
+            <th>Nội Dung Thao Tác</th>
+            <th>Kết Quả</th>
+          </tr>
+        </thead>
+        <tbody id="history-tbody">
+          <tr>
+            <td>20/09/2026 09:00</td>
+            <td>Lê Anh Quân (C)</td>
+            <td>Khởi tạo hồ sơ đề tài tốt nghiệp</td>
+            <td><span class="badge badge-info">Đã nộp</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Ban Thư Ký Hội Đồng Khóa Luận Tốt Nghiệp</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadThesis() {
+      try {
+        const res = await fetch('/api/detai/87');
+        const item = await res.json();
+        const badge = document.getElementById('status-badge');
+        const detail = document.getElementById('thesis-detail');
+
+        const isDuyet = item.trang_thai === 'da_duyet';
+        badge.className = isDuyet ? 'badge badge-success' : 'badge badge-warning';
+        badge.style.display = 'inline-flex';
+        badge.style.alignItems = 'center';
+        badge.style.gap = '6px';
+        badge.innerHTML = isDuyet ?
+          `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Đã duyệt` :
+          `<svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Chờ duyệt`;
+
+        detail.innerHTML = `
+          <table class="table">
+            <tr>
+              <th style="width: 220px;">Mã Số Đề Tài:</th>
+              <td><strong style="color: var(--primary);">#${item.ma_de_tai}</strong></td>
+            </tr>
+            <tr>
+              <th>Tên Đề Tài Khóa Luận:</th>
+              <td><strong>${item.ten_de_tai}</strong></td>
+            </tr>
+            <tr>
+              <th>Sinh Viên Đăng Ký:</th>
+              <td>${item.sinh_vien} (MSSV: ${item.mssv})</td>
+            </tr>
+            <tr>
+              <th>Giảng Viên Hướng Dẫn:</th>
+              <td>${item.gvhd}</td>
+            </tr>
+            <tr>
+              <th>Ngày Đăng Ký Ban Đầu:</th>
+              <td>${item.ngay_nop}</td>
+            </tr>
+            <tr>
+              <th>Trạng Thái Hiện Tại:</th>
+              <td>
+                <strong style="font-size: 16px; color: ${isDuyet ? '#059669' : '#d97706'};">
+                  ${isDuyet ? 'ĐÃ DUYỆT (Đủ điều kiện bảo vệ)' : 'CHỜ DUYỆT (Chưa đủ điều kiện)'}
+                </strong>
+              </td>
+            </tr>
+          </table>
+        `;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Hàm bình thường chỉ gửi trạng thái "cho_duyet" (C xem trong tab Network DevTools)
+    async function guiYeuCauCapNhat() {
+      try {
+        const res = await fetch('/api/detai/87', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            trang_thai: "cho_duyet"
+          })
+        });
+        const data = await res.json();
+        alert("Đã gửi yêu cầu kiểm tra tiến độ đến Trưởng bộ môn!");
+        loadThesis();
+      } catch (err) {
+        alert("Lỗi khi gửi yêu cầu!");
+      }
+    }
+
+    // Phím tắt dự phòng cho diễn viên: Ctrl + Shift + D để duyệt đề tài tức thì nếu không muốn gõ Console
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+        fetch('/api/detai/87', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ trang_thai: 'da_duyet' })
+        }).then(() => location.reload());
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', loadThesis);
+  </script>
+</body>
+</html>
+

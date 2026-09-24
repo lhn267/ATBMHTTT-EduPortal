@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Giảng Viên - EduPortal</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="top-bar">
+      <div class="brand-section">
+        <div class="logo-badge">
+          <svg class="icon icon-primary" style="width:28px;height:28px;" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>ĐẠI HỌC CÔNG NGHỆ THÔNG TIN</h1>
+          <p>Cổng Thông Tin Đào Tạo Trực Tuyến EduPortal</p>
+        </div>
+      </div>
+      <div class="user-controls">
+        <div id="user-badge-container"></div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/dashboard.html">Trang Chủ</a></li>
+        <li><a href="/mooc.html">Khóa Học MOOC</a></li>
+        <li><a href="/diem.html?ma_de_tai=104">Tra Cứu Điểm</a></li>
+        <li><a href="/minhchung.html">Nộp Minh Chứng</a></li>
+        <li><a href="/tailieu.html?file=huong_dan_khoa_luan.pdf">Tài Liệu</a></li>
+        <li><a href="/timkiem.html">Tìm Kiếm</a></li>
+        <li><a href="/giangvien.html" class="active">Giảng Viên</a></li>
+        <li><a href="/detai.html">Đề Tài #87</a></li>
+        <li><a href="/thong-tin.html">Thông Tin Chung</a></li>
+        <li><a href="/logs.html">Nhật Ký Máy Chủ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/dashboard.html">Trang chủ</a> <span class="sep">/</span>
+      <span>Danh sách giảng viên hướng dẫn</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Danh Bạ Cán Bộ & Giảng Viên Hướng Dẫn</span>
+        <span class="badge badge-info">Khoa CNTT & ATTT</span>
+      </div>
+
+      <p style="font-size: 14px; color: #475569; margin-bottom: 20px;">
+        Sinh viên xem danh sách các thầy cô hướng dẫn để liên hệ đăng ký đề tài nghiên cứu khoa học và khóa luận tốt nghiệp.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" id="lecturer-list">
+        <!-- Render danh sách giảng viên -->
+      </div>
+    </div>
+
+    <!-- Khung xem thông tin chi tiết một giảng viên khi click -->
+    <div class="card" id="detail-card" style="display: none;">
+      <div class="card-title">
+        <span id="detail-title">Hồ Sơ Giảng Viên</span>
+        <button onclick="document.getElementById('detail-card').style.display='none'" class="btn btn-secondary btn-sm">Đóng</button>
+      </div>
+      <div id="detail-body" style="font-size: 14px; line-height: 1.8;"></div>
+    </div>
+  </div>
+
+  <footer class="portal-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p><strong>EduPortal System</strong> — Danh bạ điện tử cán bộ nhà trường</p>
+      </div>
+      <div>
+        <p>© 2026 EduPortal</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/icons.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadLecturers() {
+      try {
+        const res = await fetch('/api/giangvien');
+        const list = await res.json();
+        const container = document.getElementById('lecturer-list');
+
+        container.innerHTML = '';
+        list.forEach(gv => {
+          const card = document.createElement('div');
+          card.style.border = '1px solid var(--border)';
+          card.style.borderRadius = '8px';
+          card.style.padding = '18px';
+          card.style.background = '#f8fafc';
+          card.style.cursor = 'pointer';
+
+          card.innerHTML = `
+            <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: #0284c7; color: white; display: flex; align-items: center; justify-content: center;">
+                <svg class="icon" style="width: 24px; height: 24px; stroke: white;" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <h4 style="color: var(--primary-dark); margin: 0; font-size: 16px;">${gv.chuc_danh || gv.ho_ten}</h4>
+                <span style="font-size: 12px; color: var(--text-muted);">${gv.khoa}</span>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: #475569; line-height: 1.6;">
+              <p>Mã giảng viên: <strong>${gv.id}</strong></p>
+              <p>Email: <a href="mailto:${gv.email}" style="color: var(--accent);">${gv.email}</a></p>
+            </div>
+            <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+              <button onclick="viewDetail(${gv.id})" class="btn btn-primary btn-sm">Xem thông tin chi tiết</button>
+              <a href="/api/giangvien/${gv.id}" target="_blank" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
+                /api/giangvien/${gv.id}
+              </a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function viewDetail(id) {
+      try {
+        const res = await fetch(`/api/giangvien/${id}`);
+        const gv = await res.json();
+        const detailCard = document.getElementById('detail-card');
+        const detailTitle = document.getElementById('detail-title');
+        const detailBody = document.getElementById('detail-body');
+
+        detailTitle.textContent = `Hồ Sơ: ${gv.ho_ten} (Mã GV: ${gv.id})`;
+        detailBody.innerHTML = `
+          <table class="table">
+            <tr><th style="width: 200px;">Họ và Tên:</th><td><strong>${gv.ho_ten}</strong></td></tr>
+            <tr><th>Khoa / Đơn vị:</th><td>${gv.khoa}</td></tr>
+            <tr><th>Học vị & Chức vụ:</th><td>${gv.chuc_danh}</td></tr>
+            <tr><th>Phòng làm việc:</th><td>${gv.phong_lam_viec || 'Văn phòng Khoa'}</td></tr>
+            <tr><th>Email công vụ:</th><td><a href="mailto:${gv.email}" style="color: var(--accent);">${gv.email}</a></td></tr>
+            <tr><th>Số điện thoại cá nhân (Lộ):</th><td><strong style="color: #ef4444; display: inline-flex; align-items: center; gap: 6px;"><svg class="icon icon-sm icon-danger" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> ${gv.so_dien_thoai}</strong></td></tr>
+            <tr><th>Địa chỉ nơi cư trú (Lộ):</th><td><strong style="color: #ef4444; display: inline-flex; align-items: center; gap: 6px;"><svg class="icon icon-sm icon-danger" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${gv.dia_chi}</strong></td></tr>
+            <tr>
+              <th>Đường dẫn API công khai:</th>
+              <td><a href="/api/giangvien/${gv.id}" target="_blank" style="color: var(--accent);">http://localhost:3000/api/giangvien/${gv.id}</a></td>
+            </tr>
+          </table>
+        `;
+        detailCard.style.display = 'block';
+        detailCard.scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadLecturers);
+  </script>
+</body>
+</html>
+
