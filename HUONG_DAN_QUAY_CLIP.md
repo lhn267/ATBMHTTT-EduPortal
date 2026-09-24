@@ -1,10 +1,10 @@
-# CẨM NANG ĐẠO DIỄN & KỊCH BẢN QUAY CHI TIẾT (NHÓM 6 - ATBMHTTT)
+﻿# CẨM NANG ĐẠO DIỄN & KỊCH BẢN QUAY CHI TIẾT (NHÓM 6 - ATBMHTTT)
 > **Dự án:** Tiểu phẩm tình huống An Toàn Bảo Mật Hệ Thống Thông Tin  
 > **Chủ đề:** 20 Lỗ hổng Ứng dụng Web (Web Vulnerabilities) trên hệ thống **EduPortal**  
 > **Nhân vật:**
 > - **A**: Trưởng nhóm, Lập trình viên chính xây dựng EduPortal.
 > - **B**: Cô giáo viên hướng dẫn kiêm Quản trị hệ thống.
-> - **C (Quân)**: Thành viên cùng nhóm nhưng đang trượt đề tài tốt nghiệp.
+> - **Bảo Nghi (C)**: Thành viên cùng nhóm nhưng đang trượt đề tài tốt nghiệp.
 
 ---
 
@@ -35,7 +35,7 @@
     ```
   - Ô **Mật khẩu**: Để trống (hoặc gõ bất kỳ).
   - Bấm nút: **"Đăng Nhập"**.
-- **Màn hình hiển thị:** Chuyển thẳng vào Bảng điều khiển Quản trị viên (`/dashboard.html`) với tên *TS. Nguyễn Thị B (Giảng viên & Admin)*.
+- **Màn hình hiển thị:** Chuyển thẳng vào Bảng điều khiển Quản trị viên (`/dashboard.html`) với tên *TS. Hồng Ngọc (Giảng viên & Admin)*.
 - **Lời thoại B:** *(Khựng lại, ngạc nhiên)* *"Ơ... cô gõ bậy bạ vậy mà vô được trang quản trị luôn á?"*
 - **Lời thoại A:** *(Cười trừ, mắt nhìn sang màn hình)* *"Chắc tài khoản demo em chưa xóa á cô, để mai em check, giờ xem tiếp phần MOOC cho kịp giờ lab."*
 
@@ -204,7 +204,7 @@
 - **Màn hình hiển thị:** Màn hình trả về trực tiếp chuỗi JSON:
   ```json
   {
-    "ho_ten": "Nguyễn Văn A",
+    "ho_ten": "Bảo Ngọc",
     "so_dien_thoai": "0912345678",
     "dia_chi": "Số 123 Đường Võ Văn Ngân, TP. Thủ Đức, TP. HCM"
   }
@@ -295,7 +295,7 @@
 - **Thao tác trên máy (A thực hiện tại bàn làm việc):**
   - A vào trang **"Nhật Ký Máy Chủ"** (`http://localhost:3000/logs`).
 - **Màn hình hiển thị:** Dòng nhật ký bôi đỏ nổi bật:  
-  `PUT /api/detai/87 - Payload: {"trang_thai": "da_duyet"} - Tài khoản: Lê Anh Quân (C) - Cảnh báo: Gửi thẳng request PUT cập nhật trạng thái không qua phê duyệt của Trưởng bộ môn!`
+  `PUT /api/detai/87 - Payload: {"trang_thai": "da_duyet"} - Tài khoản: Bảo Nghi (C) - Cảnh báo: Gửi thẳng request PUT cập nhật trạng thái không qua phê duyệt của Trưởng bộ môn!`
 - **Lời thoại A:** *(Mặt biến sắc, quay sang nói với cô B)* *"Cái này đâu phải bấm nút trên web ra được, phải tự tay soạn hẳn một yêu cầu gửi thẳng lên server mới ra vầy chứ. Mà sao gửi bậy vậy vẫn được server chấp nhận luôn, đâu ai kiểm tra lại gì hết á?"*
 
 ---

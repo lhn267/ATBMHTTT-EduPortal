@@ -23,7 +23,7 @@ async function runTests() {
   res = await fetch('http://localhost:3000/api/comments', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user: "TS. Nguyễn Thị B", content: "<script>alert('test')</script>" })
+    body: JSON.stringify({ user: "TS. Hồng Ngọc", content: "<script>alert('test')</script>" })
   });
   d = await res.json();
   assert(d.success === true && d.comment.content === "<script>alert('test')</script>", 'Lỗi 2: Stored XSS lưu trữ script tag thô');

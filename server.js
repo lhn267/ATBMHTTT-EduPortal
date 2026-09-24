@@ -100,8 +100,8 @@ app.get('/.git/config', (req, res) => {
 \tremote = origin
 \tmerge = refs/heads/main
 [user]
-\tname = Nguyen Van A
-\temail = dev-a@eduportal.edu.vn`);
+\tname = Bao Ngoc
+\temail = baongoc@uel.edu.vn`);
 });
 
 app.get('/.git/HEAD', (req, res) => {
@@ -134,7 +134,7 @@ app.post('/api/login', (req, res) => {
       message: "Đăng nhập thành công qua quyền Quản trị viên (SQLi Detected)!",
       user: {
         username: "admin",
-        name: "TS. Nguyễn Thị B (Giảng viên & Admin)",
+        name: "TS. Hồng Ngọc (Giảng viên & Admin)",
         role: "admin"
       },
       session: sessionToken,
@@ -205,7 +205,7 @@ app.post('/api/comments', (req, res) => {
   // Lưu trực tiếp không sanitize, không escape HTML
   const newComment = {
     id: db.comments.length + 1,
-    user: user || "TS. Nguyễn Thị B",
+    user: user || "TS. Hồng Ngọc",
     avatar: "user",
     content: content || "",
     time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + " " + new Date().toLocaleDateString('vi-VN')
@@ -336,8 +336,8 @@ app.get('/api/tim-kiem-sv', (req, res) => {
   res.json({
     error: false,
     results: [
-      { ma_sv: "SV001", ho_ten: "Lê Anh Quân", lop: "ATTT2022", gpa: "2.1 / 4.0" },
-      { ma_sv: "SV002", ho_ten: "Nguyễn Văn A", lop: "ATTT2022", gpa: "3.6 / 4.0" }
+      { ma_sv: "SV001", ho_ten: "Bảo Nghi", lop: "K22_UEL", gpa: "2.1 / 4.0" },
+      { ma_sv: "SV002", ho_ten: "Bảo Ngọc", lop: "K22_UEL", gpa: "3.6 / 4.0" }
     ]
   });
 });
@@ -368,9 +368,9 @@ app.get('/api/diem', (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   res.json({
-    sinh_vien: "Nguyễn Văn A",
+    sinh_vien: "Bảo Ngọc",
     mssv: "SV002",
-    khoa: "An toàn thông tin",
+    khoa: "Hệ thống thông tin",
     bang_diem: {
       "Cơ sở dữ liệu": 8.5,
       "An toàn thông tin": 9.0,
@@ -450,7 +450,7 @@ app.put('/api/detai/:id', (req, res) => {
     method: "PUT",
     url: `/api/detai/${id}`,
     ip: req.ip || "127.0.0.1",
-    user: "Lê Anh Quân (C) - MSSV: SV001",
+    user: "Bảo Nghi (C) - MSSV: SV001",
     payload: req.body,
     bypass_ui: true,
     detail: `Gửi thẳng request PUT cập nhật trạng thái thành "${trang_thai}" không qua phê duyệt của Trưởng bộ môn!`

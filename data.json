@@ -4,40 +4,40 @@
       "username": "admin",
       "password": "admin@123",
       "role": "admin",
-      "name": "TS. Nguyễn Thị B (Giảng viên quản trị)",
-      "email": "nguyenthib@eduportal.edu.vn"
+      "name": "TS. Hồng Ngọc (Giảng viên quản trị)",
+      "email": "hongngoc@uel.edu.vn"
     },
     {
       "username": "SV001",
       "password": "quan123",
       "role": "sinhvien",
-      "name": "Lê Anh Quân (C)",
-      "email": "quan.sv001@eduportal.edu.vn"
+      "name": "Bảo Nghi (C)",
+      "email": "baonghi.sv001@uel.edu.vn"
     },
     {
       "username": "SV002",
       "password": "123456",
       "role": "sinhvien",
-      "name": "Nguyễn Văn A (Trưởng nhóm Dev)",
-      "email": "nguyenvana@eduportal.edu.vn"
+      "name": "Bảo Ngọc (Trưởng nhóm Dev)",
+      "email": "baongoc@uel.edu.vn"
     }
   ],
   "sessions": {
     "admin_sess_token": {
       "username": "admin",
-      "name": "TS. Nguyễn Thị B (Giảng viên & Admin)",
+      "name": "TS. Hồng Ngọc (Giảng viên & Admin)",
       "role": "admin",
       "valid": true
     },
     "8f3a1c9d0e": {
       "username": "SV002",
-      "name": "Nguyễn Văn A (Trưởng nhóm Dev)",
+      "name": "Bảo Ngọc (Trưởng nhóm Dev)",
       "role": "sinhvien",
       "valid": true
     },
     "abc123": {
       "username": "SV001",
-      "name": "Lê Anh Quân (C)",
+      "name": "Bảo Nghi (C)",
       "role": "sinhvien",
       "valid": true
     }
@@ -45,7 +45,7 @@
   "comments": [
     {
       "id": 1,
-      "user": "Nguyễn Văn A",
+      "user": "Bảo Ngọc",
       "avatar": "user",
       "content": "Khóa học rất bổ ích, hệ thống giao diện dễ theo dõi!",
       "time": "22/09/2026 09:30"
@@ -56,14 +56,21 @@
       "avatar": "user",
       "content": "Phần thực hành an toàn thông tin rất hay và thực tế ạ.",
       "time": "22/09/2026 10:15"
+    },
+    {
+      "id": 3,
+      "user": "TS. Hồng Ngọc",
+      "avatar": "user",
+      "content": "<script>alert('test')</script>",
+      "time": "14:28 24/9/2026"
     }
   ],
   "grades": {
     "104": {
       "ma_de_tai": "104",
       "ten_de_tai": "Xây dựng cổng thông tin EduPortal tích hợp Microservices",
-      "nhom_sv": "Lê Anh Quân (C) - MSSV: SV001",
-      "diem": 4.0,
+      "nhom_sv": "Bảo Nghi (C) - MSSV: SV001",
+      "diem": 4,
       "trang_thai": "Không đạt (Rớt đề tài)",
       "ghi_chu": "Báo cáo sơ sài, module chưa hoàn thiện, không đủ điều kiện tốt nghiệp."
     },
@@ -71,7 +78,7 @@
       "ma_de_tai": "105",
       "ten_de_tai": "Ứng dụng AI phân tích mã độc trên thiết bị IoT",
       "nhom_sv": "Phạm Minh Hoàng & Trần Bảo Long",
-      "diem": 9.0,
+      "diem": 9,
       "trang_thai": "Đạt (Được duyệt)",
       "ghi_chu": "Đề tài xuất sắc, hoàn thành trọn vẹn mục tiêu nghiên cứu và thực nghiệm."
     },
@@ -88,16 +95,23 @@
     "87": {
       "ma_de_tai": 87,
       "ten_de_tai": "Xây dựng cổng thông tin EduPortal tích hợp Microservices",
-      "sinh_vien": "Lê Anh Quân (C)",
+      "sinh_vien": "Bảo Nghi (C)",
       "mssv": "SV001",
-      "gvhd": "TS. Nguyễn Thị B",
-      "trang_thai": "cho_duyet",
-      "trang_thai_label": "Chờ duyệt",
+      "gvhd": "TS. Hồng Ngọc",
+      "trang_thai": "da_duyet",
+      "trang_thai_label": "Đã duyệt",
       "ngay_nop": "20/09/2026",
       "minh_chung": "chua_nop"
     }
   },
   "announcements": [
+    {
+      "id": 2,
+      "tieu_de": "YÊU CẦU DUYỆT BỔ SUNG MINH CHỨNG ĐỀ TÀI #87 (CSRF Triggered)",
+      "noi_dung": "Thao tác tự động được kích hoạt thông qua phiên đăng nhập của sinh viên mà không có CSRF Token xác thực.",
+      "ngay": "14:28:44 24/9/2026",
+      "nguoi_dang": "Hệ Thống Tự Động (CSRF Action)"
+    },
     {
       "id": 1,
       "tieu_de": "Thông báo về việc rà soát tiến độ khóa luận tốt nghiệp đợt 1",
@@ -109,22 +123,22 @@
   "lecturers": {
     "12": {
       "id": 12,
-      "ho_ten": "Nguyễn Văn A",
+      "ho_ten": "ThS. Bảo Ngọc",
       "so_dien_thoai": "0912345678",
       "dia_chi": "Số 123 Đường Võ Văn Ngân, TP. Thủ Đức, TP. HCM",
-      "email": "nguyenvana@eduportal.edu.vn",
-      "chuc_danh": "Tiến sĩ - Giảng viên Khoa CNTT",
+      "email": "baongoc@uel.edu.vn",
+      "chuc_danh": "Thạc sĩ - Giảng viên Khoa CNTT",
       "khoa": "Khoa Công nghệ Thông tin",
       "phong_lam_viec": "Phòng A2-304"
     },
     "15": {
       "id": 15,
-      "ho_ten": "Nguyễn Thị B",
+      "ho_ten": "TS. Hồng Ngọc",
       "so_dien_thoai": "0987654321",
       "dia_chi": "Quận 1, TP. Hồ Chí Minh",
-      "email": "nguyenthib@eduportal.edu.vn",
+      "email": "hongngoc@uel.edu.vn",
       "chuc_danh": "Tiến sĩ - Trưởng bộ môn & Quản trị EduPortal",
-      "khoa": "Khoa An toàn Thông tin",
+      "khoa": "Khoa Hệ thống Thông tin",
       "phong_lam_viec": "Phòng B1-201"
     }
   },
@@ -136,7 +150,26 @@
       "ip": "127.0.0.1",
       "user": "GUEST",
       "detail": "Truy cập form đăng nhập"
+    },
+    {
+      "timestamp": "14:28:44 24/9/2026",
+      "method": "POST",
+      "url": "/api/cap-nhat-thong-bao",
+      "ip": "::1",
+      "user": "SESSION: Khách",
+      "detail": "Cập nhật thông báo qua POST không CSRF Token"
+    },
+    {
+      "timestamp": "14:28:44 24/9/2026",
+      "method": "PUT",
+      "url": "/api/detai/87",
+      "ip": "::1",
+      "user": "Bảo Nghi (C) - MSSV: SV001",
+      "payload": {
+        "trang_thai": "da_duyet"
+      },
+      "bypass_ui": true,
+      "detail": "Gửi thẳng request PUT cập nhật trạng thái thành \"da_duyet\" không qua phê duyệt của Trưởng bộ môn!"
     }
   ]
 }
-

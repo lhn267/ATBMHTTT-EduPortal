@@ -4,40 +4,40 @@
       "username": "admin",
       "password": "admin@123",
       "role": "admin",
-      "name": "TS. Nguyễn Thị B (Giảng viên quản trị)",
-      "email": "nguyenthib@eduportal.edu.vn"
+      "name": "TS. Hồng Ngọc (Giảng viên quản trị)",
+      "email": "hongngoc@uel.edu.vn"
     },
     {
       "username": "SV001",
       "password": "quan123",
       "role": "sinhvien",
-      "name": "Lê Anh Quân (C)",
-      "email": "quan.sv001@eduportal.edu.vn"
+      "name": "Bảo Nghi (C)",
+      "email": "baonghi.sv001@uel.edu.vn"
     },
     {
       "username": "SV002",
       "password": "123456",
       "role": "sinhvien",
-      "name": "Nguyễn Văn A (Trưởng nhóm Dev)",
-      "email": "nguyenvana@eduportal.edu.vn"
+      "name": "Bảo Ngọc (Trưởng nhóm Dev)",
+      "email": "baongoc@uel.edu.vn"
     }
   ],
   "sessions": {
     "admin_sess_token": {
       "username": "admin",
-      "name": "TS. Nguyễn Thị B (Giảng viên & Admin)",
+      "name": "TS. Hồng Ngọc (Giảng viên & Admin)",
       "role": "admin",
       "valid": true
     },
     "8f3a1c9d0e": {
       "username": "SV002",
-      "name": "Nguyễn Văn A (Trưởng nhóm Dev)",
+      "name": "Bảo Ngọc (Trưởng nhóm Dev)",
       "role": "sinhvien",
       "valid": true
     },
     "abc123": {
       "username": "SV001",
-      "name": "Lê Anh Quân (C)",
+      "name": "Bảo Nghi (C)",
       "role": "sinhvien",
       "valid": true
     }
@@ -45,7 +45,7 @@
   "comments": [
     {
       "id": 1,
-      "user": "Nguyễn Văn A",
+      "user": "Bảo Ngọc",
       "avatar": "user",
       "content": "Khóa học rất bổ ích, hệ thống giao diện dễ theo dõi!",
       "time": "22/09/2026 09:30"
@@ -62,7 +62,7 @@
     "104": {
       "ma_de_tai": "104",
       "ten_de_tai": "Xây dựng cổng thông tin EduPortal tích hợp Microservices",
-      "nhom_sv": "Lê Anh Quân (C) - MSSV: SV001",
+      "nhom_sv": "Bảo Nghi (C) - MSSV: SV001",
       "diem": 4.0,
       "trang_thai": "Không đạt (Rớt đề tài)",
       "ghi_chu": "Báo cáo sơ sài, module chưa hoàn thiện, không đủ điều kiện tốt nghiệp."
@@ -88,9 +88,9 @@
     "87": {
       "ma_de_tai": 87,
       "ten_de_tai": "Xây dựng cổng thông tin EduPortal tích hợp Microservices",
-      "sinh_vien": "Lê Anh Quân (C)",
+      "sinh_vien": "Bảo Nghi (C)",
       "mssv": "SV001",
-      "gvhd": "TS. Nguyễn Thị B",
+      "gvhd": "TS. Hồng Ngọc",
       "trang_thai": "cho_duyet",
       "trang_thai_label": "Chờ duyệt",
       "ngay_nop": "20/09/2026",
@@ -109,22 +109,22 @@
   "lecturers": {
     "12": {
       "id": 12,
-      "ho_ten": "Nguyễn Văn A",
+      "ho_ten": "ThS. Bảo Ngọc",
       "so_dien_thoai": "0912345678",
       "dia_chi": "Số 123 Đường Võ Văn Ngân, TP. Thủ Đức, TP. HCM",
-      "email": "nguyenvana@eduportal.edu.vn",
-      "chuc_danh": "Tiến sĩ - Giảng viên Khoa CNTT",
+      "email": "baongoc@uel.edu.vn",
+      "chuc_danh": "Thạc sĩ - Giảng viên Khoa CNTT",
       "khoa": "Khoa Công nghệ Thông tin",
       "phong_lam_viec": "Phòng A2-304"
     },
     "15": {
       "id": 15,
-      "ho_ten": "Nguyễn Thị B",
+      "ho_ten": "TS. Hồng Ngọc",
       "so_dien_thoai": "0987654321",
       "dia_chi": "Quận 1, TP. Hồ Chí Minh",
-      "email": "nguyenthib@eduportal.edu.vn",
+      "email": "hongngoc@uel.edu.vn",
       "chuc_danh": "Tiến sĩ - Trưởng bộ môn & Quản trị EduPortal",
-      "khoa": "Khoa An toàn Thông tin",
+      "khoa": "Khoa Hệ thống Thông tin",
       "phong_lam_viec": "Phòng B1-201"
     }
   },
@@ -139,4 +139,3 @@
     }
   ]
 }
-
