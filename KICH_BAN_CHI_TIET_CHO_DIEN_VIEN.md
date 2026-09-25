@@ -12,10 +12,10 @@
 
 > 🌟 **LƯU Ý DÀNH CHO DIỄN VIÊN VỀ ĐƯỜNG LINK TRUY CẬP:**
 >
-> * **NẾU QUAY ONLINE TRÊN CLOUD (RENDER):**  
->   - Link chính thức EduPortal: **`https://<link-web-cua-ban>.onrender.com`** (ví dụ: `https://eduportal-nhom6.onrender.com`).  
->   - Mỗi khi kịch bản ghi `http://localhost:3000/...`, diễn viên chỉ cần truy cập vào đường link Render của mình với đuôi tương ứng (hoặc **bấm trực tiếp các nút trên thanh menu giao diện**, hệ thống sẽ tự chuyển đúng trang).  
->   - **Cách Reset dữ liệu 1-Click khi quay online:** Mở link `https://<link-web-cua-ban>.onrender.com/reset` là dữ liệu lập tức trở về nguyên bản sạch sẽ 100%!
+> * **NẾU QUAY ONLINE TRÊN CLOUD (RENDER) - KHUYÊN DÙNG:**  
+>   - **Link chính thức EduPortal:** **`https://eduportal-nhom06.onrender.com`**  
+>   - Toàn bộ các đường link trong kịch bản đã được gắn sẵn tên miền Render của nhóm bạn. Diễn viên chỉ cần bấm copy và dán thẳng vào trình duyệt!  
+>   - **Cách Reset dữ liệu 1-Click khi quay online:** Mở link **`https://eduportal-nhom06.onrender.com/reset`** là xong!  
 >
 > * **NẾU QUAY OFFLINE TRÊN MÁY TÍNH (LOCALHOST):**  
 >   - Vào thư mục dự án, nhấp đúp file **`run.bat`** để khởi động hệ thống.  
@@ -32,7 +32,7 @@
 #### 1. Form đăng nhập dính SQL Injection (Lỗi 1)
 - **Lời thoại Cô Hồng Ngọc (B):** *"Sắp báo cáo tiến độ rồi, cho cô xem tổng quan đi em."*
 - **Thao tác trên máy (B gõ):**
-  - Mở trang đăng nhập: `http://localhost:3000/login` *(hoặc link Render: `.../login`)*
+  - Mở trang đăng nhập: `https://eduportal-nhom06.onrender.com/login`
   - Ô **Tên đăng nhập / Mã số**: Gõ chính xác chuỗi:
     ```sql
     admin' OR '1'='1' --
@@ -45,7 +45,7 @@
 
 #### 2. Bình luận khóa học MOOC dính Stored XSS (Lỗi 2)
 - **Thao tác trên máy:**
-  - Bấm vào menu **"Khóa Học MOOC"** (hoặc truy cập `http://localhost:3000/mooc` *(hoặc link Render: `.../mooc`)*).
+  - Bấm vào menu **"Khóa Học MOOC"** (hoặc truy cập `https://eduportal-nhom06.onrender.com/mooc`).
   - Cuộn xuống phần **Thảo luận & Bình luận**.
   - Trong ô *Nội dung bình luận*, B gõ:
     ```html
@@ -76,16 +76,16 @@
 #### 3. Sửa ID trên URL để xem điểm nhóm khác - IDOR (Lỗi 3)
 - **Lời thoại Bảo Nghi (C):** *"Chức năng xem điểm... để test thử coi có bug gì không."*
 - **Thao tác trên máy (C làm):**
-  - Mở trang điểm: `http://localhost:3000/diem?ma_de_tai=104` *(hoặc link Render: `.../diem?ma_de_tai=104`)*
+  - Mở trang điểm: `https://eduportal-nhom06.onrender.com/diem?ma_de_tai=104`
   - Màn hình hiện: Điểm của nhóm C (*Đề tài #104 - 4.0 điểm - Không đạt / Rớt đề tài*).
-  - C bôi đen số `104` trên thanh địa chỉ URL, sửa thành: `105` rồi nhấn **Enter** (`http://localhost:3000/diem?ma_de_tai=105` hoặc link Render: `.../diem?ma_de_tai=105`).
+  - C bôi đen số `104` trên thanh địa chỉ URL, sửa thành: `105` rồi nhấn **Enter** (`https://eduportal-nhom06.onrender.com/diem?ma_de_tai=105`).
 - **Màn hình hiển thị:** Lập tức hiện bảng điểm của nhóm khác (*Đề tài #105 - 9.0 điểm - Đạt / Được duyệt*).
 - **Lời thoại Bảo Nghi (C):** *"Dễ vậy luôn hả, đổi mỗi con số thôi mà. (Khựng lại, sững sờ) Ơ, đề tài mình bị rớt mà nhóm khác được duyệt... (Im lặng một lúc) ...thôi, test tiếp đã."*
 
 #### 4. Module minh chứng cho phép upload file PHP (Lỗi 4)
 - **Lời thoại Bảo Nghi (C):** *"Mà khoan... nếu điểm với thông tin đề tài của nhóm khác còn xem được, không biết mấy chỗ khác có kiểm tra kỹ hơn không."*
 - **Thao tác trên máy:**
-  - Bấm vào menu **"Nộp Minh Chứng"** (`http://localhost:3000/minhchung` *(hoặc link Render: `.../minhchung`)*).
+  - Bấm vào menu **"Nộp Minh Chứng"** (`https://eduportal-nhom06.onrender.com/minhchung`).
   - Mở thư mục hoặc kéo thả tệp **`uploads/bao_cao.php`** (đã chuẩn bị sẵn trong thư mục dự án) vào khung tải tệp.
 - **Màn hình hiển thị:** Thông báo màu xanh nổi bật: **"Tải lên thành công — bao_cao.php"**.
 - **Lời thoại Bảo Nghi (C):** *(Ồ lên khe khẽ)* *"Up lên được thiệt luôn? Nó đâu có kiểm tra đuôi file gì đâu ta..."*
@@ -93,14 +93,14 @@
 #### 5. Đường dẫn file dính Directory Traversal (Lỗi 5)
 - **Lời thoại Bảo Nghi (C):** *"Upload được file gì cũng cho qua... vậy cái chỗ đọc tài liệu này có kiểm tra đường dẫn không?"*
 - **Thao tác trên máy:**
-  - Bấm vào menu **"Tài Liệu"** (`http://localhost:3000/tailieu?file=huong_dan_khoa_luan.pdf` *(hoặc link Render: `.../tailieu?file=...`)* hoặc `/view?file=...`).
+  - Bấm vào menu **"Tài Liệu"** (`https://eduportal-nhom06.onrender.com/tailieu?file=huong_dan_khoa_luan.pdf` hoặc `/view?file=...`).
 - **Lời thoại Bảo Nghi (C):** *"Có tham số file luôn..."*
 - **Thao tác trên máy:**
   - Sửa tham số trên URL thành:
+    ```text
+    https://eduportal-nhom06.onrender.com/tailieu?file=../../../../etc/passwd
     ```
-    http://localhost:3000/tailieu?file=../../../../etc/passwd
-    (hoặc link Render: https://<web>/tailieu?file=../../../../etc/passwd)
-    ```
+    *(Ghi chú: Nếu quay offline trên máy thì thay bằng `http://localhost:3000/tailieu?file=../../../../etc/passwd`)*
   - Nhấn **Enter**.
 - **Màn hình hiển thị:** Toàn bộ nội dung tập tin `/etc/passwd` trên máy chủ hiển thị trên màn hình (`root:x:0:0:root:...`).
 - **Lời thoại Bảo Nghi (C):** *"Wow. Đi vòng vòng vậy mà đọc được cả file trên server luôn á?"*
@@ -117,13 +117,13 @@
   - C mở DevTools (phím **F12**), chọn tab **Network**.
   - Thấy request chạy ngầm: `POST http://localhost:3000/api/cap-nhat-thong-bao`, Cookie: `SESSION_ID=...`, Status: `200 OK`.
 - **Lời thoại Bảo Nghi (C):** *"Ủa gì vậy? Mình có làm gì đâu? Để mở DevTools lên xem thử... Khoan... Mình đang coi tài liệu thôi mà? Sao bên EduPortal lại vừa có thao tác?"*
-- **Thao tác trên máy:** Chuyển sang tab EduPortal (`http://localhost:3000/dashboard.html` *(hoặc link Render: `.../dashboard.html`)*). Màn hình hiện thông báo mới: *"Cập nhật thành công"*.
+- **Thao tác trên máy:** Chuyển sang tab EduPortal (`https://eduportal-nhom06.onrender.com/dashboard.html`). Màn hình hiện thông báo mới: *"Cập nhật thành công"*.
 - **Lời thoại Bảo Nghi (C):** *"Vậy là web bên ngoài vừa khiến EduPortal thực hiện thao tác bằng phiên đăng nhập của mình? Để note lại lỗi này."*
 
 #### 7. Hiển thị chi tiết lỗi truy vấn SQL ra màn hình (Lỗi 7)
 - **Lời thoại Bảo Nghi (C):** *"Test tới đây coi như tạm ổn phần chính. Còn cái ô tìm mã sinh viên nữa..."*
 - **Thao tác trên máy:**
-  - Vào trang **"Tìm Kiếm"** (`http://localhost:3000/timkiem` *(hoặc link Render: `.../timkiem`)*).
+  - Vào trang **"Tìm Kiếm"** (`https://eduportal-nhom06.onrender.com/timkiem`).
   - Nhập vào ô tìm kiếm chuỗi:
     ```
     12a"
@@ -136,7 +136,7 @@
 #### 10. Để lộ mật khẩu kết nối Database trong file HTML (Lỗi 10)
 - **Lời thoại Bảo Nghi (C):** *"Test xong phần tìm kiếm rồi, giờ qua trang thông tin chung coi UI ổn không."*
 - **Thao tác trên máy:**
-  - Vào trang **"Thông Tin Chung"** (`http://localhost:3000/thong-tin` *(hoặc link Render: `.../thong-tin`)*).
+  - Vào trang **"Thông Tin Chung"** (`https://eduportal-nhom06.onrender.com/thong-tin`).
   - Nhấp chuột phải vào trang, chọn **"Xem nguồn trang" (View Page Source)** hoặc nhấn tổ hợp phím **Ctrl + U**.
   - Cuộn xuống đáy trang HTML.
 - **Màn hình hiển thị:** Thấy dòng chú thích của lập trình viên:
@@ -149,10 +149,10 @@
 - **Lời thoại Bảo Nghi (C):** *"Thử coi cái thư mục git lúc đẩy code lên server còn sót không ha."*
 - **Thao tác trên máy:**
   - Gõ trên URL trình duyệt:
+    ```text
+    https://eduportal-nhom06.onrender.com/.git/config
     ```
-    http://localhost:3000/.git/config
-    (hoặc link Render: https://<web>/.git/config)
-    ```
+    *(Ghi chú: Nếu quay offline trên máy thì thay bằng `http://localhost:3000/.git/config`)*
   - Nhấn **Enter**.
 - **Màn hình hiển thị:** Toàn bộ nội dung tập tin cấu hình mã nguồn `.git/config` hiện ra.
 - **Lời thoại Bảo Nghi (C):** *"Còn luôn á? Vậy ai rảnh cũng lấy được nguyên code tụi mình viết luôn chứ gì. (Lại định báo rồi thôi) Thôi, để tổng hợp một lượt rồi báo luôn cho gọn."*
@@ -191,10 +191,10 @@
   - Lập trình viên thiết lập bảo mật sai lầm (`"alg": "none"` — không kiểm tra chữ ký). Do đó, chỉ cần người dùng tự ý đổi chuỗi thành quyền `{"role": "admin"}` thì máy chủ vẫn tin tưởng tuyệt đối và trao quyền Quản trị viên tối cao!
 - **Thao tác trên máy (C làm tuần tự):**
   1. **Bước 1:** C thử gõ đường dẫn trang Quản trị trên thanh URL:
+     ```text
+     https://eduportal-nhom06.onrender.com/admin
      ```
-     http://localhost:3000/admin
-     (hoặc link Render: https://<web>/admin)
-     ```
+     *(Ghi chú: Nếu quay offline trên máy thì thay bằng `http://localhost:3000/admin`)*
      - **Màn hình hiển thị:** Khung đỏ chặn lại:  
        `403 Forbidden: Quyền của bạn là [sinhvien]. Chỉ tài khoản có role [admin] mới được truy cập!`
   2. **Lời thoại Bảo Nghi (C):** *"Chỉ tài khoản admin mới vào được à... Để coi token này được xác thực kiểu gì."*
@@ -216,14 +216,14 @@
 
 #### 8. API lộ thông tin cá nhân của giảng viên (Lỗi 8)
 - **Thao tác trên máy:**
-  - B mở mục **"Giảng Viên"** (`http://localhost:3000/giangvien` *(hoặc link Render: `.../giangvien`)*).
+  - B mở mục **"Giảng Viên"** (`https://eduportal-nhom06.onrender.com/giangvien`).
 - **Lời thoại Cô Hồng Ngọc (B):** *"Để cô xem thử phần thông tin giảng viên. Em bấm vào cô này cho cô coi."*
 - **Thao tác trên máy:** A bấm vào thẻ giảng viên mã số 12.
 - **Lời thoại Cô Hồng Ngọc (B):** *"Ừ, phần này hiện bình thường. Nhưng dữ liệu này lấy ở đâu vậy em?"*
-- **Lời thoại Bảo Ngọc (A):** *"Dạ, em lấy từ API của hệ thống ạ. Ví dụ giảng viên này có mã 12 thì đường dẫn là: http://localhost:3000/api/giangvien/12 (hoặc link Render: .../api/giangvien/12) nè cô."*
+- **Lời thoại Bảo Ngọc (A):** *"Dạ, em lấy từ API của hệ thống ạ. Ví dụ giảng viên này có mã 12 thì đường dẫn là: https://eduportal-nhom06.onrender.com/api/giangvien/12 nè cô."*
 - **Lời thoại Cô Hồng Ngọc (B):** *"Vậy để cô thử mở thẳng đường dẫn đó xem."*
 - **Thao tác trên máy:**
-  - B copy link `http://localhost:3000/api/giangvien/12 (hoặc link Render: .../api/giangvien/12)`.
+  - B copy link `https://eduportal-nhom06.onrender.com/api/giangvien/12`.
   - Mở một **cửa sổ ẩn danh mới (Ctrl + Shift + N)** để chắc chắn chưa hề đăng nhập.
   - Dán đường dẫn và Enter.
 - **Màn hình hiển thị:** Màn hình trả về trực tiếp chuỗi JSON:
@@ -240,7 +240,7 @@
 - **Lời thoại Bảo Ngọc (A):** *"Dạ... để em sửa sau ạ."*
 
 #### 9. Không giới hạn số lần nhập sai mật khẩu - Brute-Force (Lỗi 9)
-- **Thao tác trên máy:** B mở lại trang đăng nhập `http://localhost:3000/login` *(hoặc link Render: `.../login`)*.
+- **Thao tác trên máy:** B mở lại trang đăng nhập `https://eduportal-nhom06.onrender.com/login`.
 - **Lời thoại Cô Hồng Ngọc (B):** *"Để cô thử thêm cái này."*
 - **Thao tác trên máy:**
   - B nhập username `admin`, gõ sai mật khẩu liên tục nhiều lần (15 lần).
@@ -250,7 +250,7 @@
 - **Lời thoại Bảo Ngọc (A):** *(Bận gõ chỗ khác)* *"Dạ để em thêm sau, giờ deadline gấp quá cô ơi."*
 
 #### 15. Bật chế độ Debug hiển thị lỗi trên server thật (Lỗi 15)
-- **Thao tác trên máy:** A bấm vào liên kết **"Kiểm tra Báo cáo Lỗi Máy chủ"** (`http://localhost:3000/debug-error` *(hoặc link Render: `.../debug-error`)*).
+- **Thao tác trên máy:** A bấm vào liên kết **"Kiểm tra Báo cáo Lỗi Máy chủ"** (`https://eduportal-nhom06.onrender.com/debug-error`).
 - **Màn hình hiển thị:** Toàn màn hình hiện giao diện lỗi Debug Whoops đỏ rực với chi tiết:  
   `FatalErrorException: Call to a member function getStatus() on null in SystemReportController.php line 84`  
   Hiển thị cả đường dẫn tệp mã nguồn và các biến môi trường lộ mật khẩu MySQL: `DB_PASSWORD=Edu@2024`.
@@ -261,7 +261,7 @@
 
 #### 16. Thiếu các HTTP Security Headers cơ bản - Clickjacking (Lỗi 16)
 - **Thao tác trên máy:**
-  - B mở DevTools (**F12**) → tab **Network** → chọn request trang chủ `http://localhost:3000/` *(hoặc trang chủ Render)* → phần **Response Headers**.
+  - B mở DevTools (**F12**) → tab **Network** → chọn request trang chủ `https://eduportal-nhom06.onrender.com/` → phần **Response Headers**.
 - **Lời thoại Cô Hồng Ngọc (B):** *"Để cô kiểm tra mấy HTTP header bảo mật xem."*
 - **Màn hình hiển thị:** Headers hoàn toàn không có `X-Frame-Options` hay `Content-Security-Policy`.
 - **Lời thoại Cô Hồng Ngọc (B):** *"Không thấy X-Frame-Options, cũng không có frame-ancestors."*
@@ -280,10 +280,10 @@
 
 #### 17. Truyền Session ID lộ liễu trên thanh URL (Lỗi 17)
 - **Thao tác trên máy:** A mở một đường link EduPortal mà C từng gửi:
+  ```text
+  https://eduportal-nhom06.onrender.com/dashboard?session=8f3a1c9d0e
   ```
-  http://localhost:3000/dashboard?session=8f3a1c9d0e
-   (hoặc link Render: https://<web>/dashboard?session=8f3a1c9d0e)
-  ```
+  *(Ghi chú: Nếu quay offline trên máy thì thay bằng `http://localhost:3000/dashboard?session=8f3a1c9d0e`)*
 - **Màn hình hiển thị:** Vào thẳng tài khoản A mà không cần đăng nhập.
 - **Lời thoại Cô Hồng Ngọc (B):** *(Xem link, thấy đoạn &session=8f3a1c9d0e ngay giữa URL)* *"Cái này... sao đường link đọc tài liệu bình thường lại có nguyên đoạn mã phiên đăng nhập của em nằm ngay trên URL vậy?"*
 - **Lời thoại Bảo Ngọc (A):** *(Chợt hiểu, mặt tái đi)* *"Ủa... vậy ai có cái link này là vào được tài khoản em luôn?"*
@@ -294,15 +294,17 @@
 - **Thao tác trên máy:**
   - A bấm nút **"Đăng xuất"** trên giao diện EduPortal.
   - B mở một cửa sổ ẩn danh khác (hoặc trình duyệt khác), dán lại đường link cũ:  
-    `http://localhost:3000/dashboard?session=8f3a1c9d0e
-   (hoặc link Render: https://<web>/dashboard?session=8f3a1c9d0e)` và nhấn Enter.
+    ```text
+    https://eduportal-nhom06.onrender.com/dashboard?session=8f3a1c9d0e
+    ```
+    và nhấn Enter.
 - **Màn hình hiển thị:** Vẫn vào thẳng tài khoản A như bình thường dù vừa đăng xuất!
 - **Lời thoại Cô Hồng Ngọc (B):** *(Thở dài)* *"Đăng xuất hẳn hoi rồi mà phiên cũ vẫn còn dùng được á. Đăng xuất coi như chỉ đóng giao diện thôi, chứ đâu thật sự khóa lại gì đâu."*
 
 #### 19. Sửa tham số bỏ qua kiểm duyệt đề tài của trưởng bộ môn (Lỗi 19)
 - **Hành động (Phân cảnh hồi tưởng hoặc C thao tác):**
   - C đăng nhập tài khoản sinh viên Quân (`SV001` / `quan123`).
-  - C vào trang đề tài của mình: `http://localhost:3000/detai` *(hoặc link Render: `.../detai`)*.
+  - C vào trang đề tài của mình: `https://eduportal-nhom06.onrender.com/detai`.
   - Màn hình hiện: **Đề tài #87 — Trạng thái: Chờ duyệt** (Huy hiệu màu cam).
   - C mở DevTools (**F12**) → tab **Console** (hoặc Network).
   - C gửi request cập nhật đề tài:
@@ -320,7 +322,7 @@
 
 #### 20. Chỉ xác thực dữ liệu đầu vào bằng JavaScript ở client thay vì backend (Lỗi 20)
 - **Thao tác trên máy (A thực hiện tại bàn làm việc):**
-  - A vào trang **"Nhật Ký Máy Chủ"** (`http://localhost:3000/logs` *(hoặc link Render: `.../logs`)*).
+  - A vào trang **"Nhật Ký Máy Chủ"** (`https://eduportal-nhom06.onrender.com/logs`).
 - **Màn hình hiển thị:** Dòng nhật ký bôi đỏ nổi bật:  
   `PUT /api/detai/87 - Payload: {"trang_thai": "da_duyet"} - Tài khoản: Bảo Nghi (C) - Cảnh báo: Gửi thẳng request PUT cập nhật trạng thái không qua phê duyệt của Trưởng bộ môn!`
 - **Lời thoại Bảo Ngọc (A):** *(Mặt biến sắc, quay sang nói với cô B)* *"Cái này đâu phải bấm nút trên web ra được, phải tự tay soạn hẳn một yêu cầu gửi thẳng lên server mới ra vầy chứ. Mà sao gửi bậy vậy vẫn được server chấp nhận luôn, đâu ai kiểm tra lại gì hết á?"*
