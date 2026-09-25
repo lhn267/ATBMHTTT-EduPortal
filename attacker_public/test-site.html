@@ -66,13 +66,20 @@
   </div>
 
   <script>
+    function getEduPortalOrigin() {
+      if (window.location.hostname.includes('onrender.com') || window.location.protocol === 'https:') {
+        return 'https://eduportal-nhom06.onrender.com';
+      }
+      return `http://${window.location.hostname || 'localhost'}:3000`;
+    }
+
     async function fetchDiem() {
       const box = document.getElementById('resultBox');
-      box.innerHTML = '<div style="color: #38bdf8;">Đang gửi request Cross-Origin đến http://localhost:3000/api/diem...</div>';
+      const origin = getEduPortalOrigin();
+      box.innerHTML = `<div style="color: #38bdf8;">Đang gửi request Cross-Origin đến ${origin}/api/diem...</div>`;
 
       try {
-        const host = window.location.hostname || 'localhost';
-        const response = await fetch(`http://${host}:3000/api/diem`);
+        const response = await fetch(`${origin}/api/diem`);
         const data = await response.json();
 
         let html = `<div style="color: #fbbf24; margin-bottom: 10px; font-weight: bold;">Dữ liệu đọc trộm thành công (CORS Allowed: *):</div>`;

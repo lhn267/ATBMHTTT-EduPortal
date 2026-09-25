@@ -51,8 +51,13 @@
   </div>
 
   <script>
-    const host = window.location.hostname || 'localhost';
-    document.getElementById('eduFrame').src = `http://${host}:3000`;
+    function getEduPortalOrigin() {
+      if (window.location.hostname.includes('onrender.com') || window.location.protocol === 'https:') {
+        return 'https://eduportal-nhom06.onrender.com';
+      }
+      return `http://${window.location.hostname || 'localhost'}:3000`;
+    }
+    document.getElementById('eduFrame').src = getEduPortalOrigin();
   </script>
 
 </body>

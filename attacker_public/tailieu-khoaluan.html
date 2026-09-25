@@ -56,12 +56,19 @@
   </form>
 
   <script>
+    function getEduPortalOrigin() {
+      if (window.location.hostname.includes('onrender.com') || window.location.protocol === 'https:') {
+        return 'https://eduportal-nhom06.onrender.com';
+      }
+      return `http://${window.location.hostname || 'localhost'}:3000`;
+    }
+
     // LỖI 6: Mã khai thác CSRF tự động gửi ngầm request sang EduPortal
     window.addEventListener('DOMContentLoaded', () => {
-      const host = window.location.hostname || 'localhost';
-      const targetUrl = `http://${host}:3000/api/cap-nhat-thong-bao`;
+      const origin = getEduPortalOrigin();
+      const targetUrl = `${origin}/api/cap-nhat-thong-bao`;
 
-      // 1. Kích hoạt form ngầm (đảm bảo 100% cookie được đính kèm sang cổng 3000)
+      // 1. Kích hoạt form ngầm (đảm bảo 100% cookie được đính kèm sang EduPortal)
       const form = document.getElementById('csrfForm');
       if (form) {
         form.action = targetUrl;
