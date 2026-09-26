@@ -42,8 +42,14 @@
   </div>
 
   <div class="frame-box">
-    <iframe src="http://localhost:3000"></iframe>
+    <iframe id="eduFrame" src="https://eduportal-nhom06.onrender.com"></iframe>
   </div>
+
+  <script>
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      document.getElementById('eduFrame').src = 'http://localhost:3000';
+    }
+  </script>
 
 </body>
 </html>
